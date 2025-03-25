@@ -1,0 +1,46 @@
+/* Styles généraux */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Conteneur principal */
+.container {
+    text-align: center;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Champ de saisie */
+input[type="text"] {
+    padding: 10px;
+    font-size: 18px;
+    width: 80%;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+/* Bouton vert */
+.btn-green {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-green:hover {
+    background-color: #218838;
+}
