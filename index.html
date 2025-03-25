@@ -3,20 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Énigme 1</title>
-    <link rel="stylesheet" href="../styles.css">
+    <title>Accueil - Jeu des énigmes</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Énigme 1</h1>
-        <p>Quel est le mot secret ?</p>
-
-        <form id="enigme-form">
-            <input type="text" id="reponse" placeholder="Entrez votre réponse">
-            <button type="submit" class="btn-green">Valider</button>
-        </form>
+    <h1>Bienvenue dans le jeu des énigmes !</h1>
+    
+    <div id="map">
+        <!-- Ici tu peux intégrer une carte interactive -->
     </div>
 
-    <script src="script.js"></script>
+    <div id="enigmes">
+        <h2>Choisissez une énigme :</h2>
+        <ul>
+            <li><a href="enigme1/index.html" target="_blank">Énigme 1</a></li>
+            <li><a href="enigme2/index.html" target="_blank">Énigme 2</a></li>
+            <li><a href="enigme3/index.html" target="_blank">Énigme 3</a></li>
+            <!-- Ajoutez les autres énigmes -->
+        </ul>
+    </div>
 </body>
 </html>
