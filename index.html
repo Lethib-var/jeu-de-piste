@@ -56,6 +56,10 @@
       width: 20px;
       text-align: center;
     }
+    #nextButton {
+      display: none; /* Masqué par défaut */
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
@@ -65,8 +69,9 @@
     <input type="text" id="reponse" placeholder="Entrez votre réponse" />
     <button onclick="verifierReponse()">Valider</button>
     <p id="message"></p>
+    <!-- Bouton pour revenir à la page principale (si l'énigme est validée) -->
+    <button id="nextButton" onclick="chargerProchaineEnigme()">Charger l'énigme suivante</button>
     <div class="suivi">
-      <!-- Affichage du suivi des énigmes -->
       <p>Suivi des énigmes :</p>
       <div id="suiviEnigmes"></div>
     </div>
@@ -75,74 +80,6 @@
   <script>
     // Tableau des énigmes
     const enigmes = [
-      { question: "Quel est le nom du logiciel GIS d'Esri ?", reponse: "arcgis", lettre: "A" },
-      { question: "Enigme 2 : Quel est le symbole de l'infini ?", reponse: "∞", lettre: "B" },
-      { question: "Enigme 3 : Combien de continents y a-t-il ?", reponse: "7", lettre: "C" },
-      { question: "Enigme 4 : Quel est le nom de notre planète ?", reponse: "terre", lettre: "D" },
-      { question: "Enigme 5 : Quelle couleur obtient-on en mélangeant le rouge et le bleu ?", reponse: "violet", lettre: "E" },
-      { question: "Enigme 6 : Quel est le plus grand océan du monde ?", reponse: "pacifique", lettre: "F" },
-      { question: "Enigme 7 : Quel animal est le roi de la jungle ?", reponse: "lion", lettre: "G" },
-      { question: "Enigme 8 : Combien de jours y a-t-il dans une semaine ?", reponse: "7", lettre: "H" },
-      { question: "Enigme 9 : Quel est le plus petit nombre premier ?", reponse: "2", lettre: "I" },
-      { question: "Enigme 10 : Quelle est la capitale de la France ?", reponse: "paris", lettre: "J" }
-    ];
+      { question: "Quel est
 
-    let indexEnigme = 0;
-    let resultats = new Array(enigmes.length).fill(false); // Suivi des énigmes résolues
-    let lettresTrouvees = [];
-
-    // Fonction pour afficher l'énigme courante
-    function afficherEnigme() {
-      if (indexEnigme < enigmes.length) {
-        document.getElementById("titreEnigme").textContent = "Enigme " + (indexEnigme + 1);
-        document.getElementById("question").textContent = enigmes[indexEnigme].question;
-        document.getElementById("reponse").value = "";
-        document.getElementById("message").textContent = "";
-      } else {
-        // Fin des énigmes, composer le mot final
-        let motFinal = lettresTrouvees.join("");
-        document.getElementById("titreEnigme").textContent = "Félicitations !";
-        document.getElementById("question").textContent = "Votre mot final est : " + motFinal;
-        document.getElementById("reponse").style.display = "none";
-        document.getElementById("message").style.display = "none";
-      }
-      mettreAJourSuivi();
-    }
-
-    // Fonction pour vérifier la réponse de l'énigme courante
-    function verifierReponse() {
-      let reponseUtilisateur = document.getElementById("reponse").value.trim().toLowerCase();
-      let messageEl = document.getElementById("message");
-
-      if (reponseUtilisateur === enigmes[indexEnigme].reponse) {
-        messageEl.textContent = "Bonne réponse !";
-        messageEl.style.color = "green";
-        resultats[indexEnigme] = true;
-        lettresTrouvees.push(enigmes[indexEnigme].lettre);
-        indexEnigme++;
-        // Passage à l'énigme suivante après un court délai
-        setTimeout(afficherEnigme, 1000);
-      } else {
-        messageEl.textContent = "Mauvaise réponse, essayez encore !";
-        messageEl.style.color = "red";
-      }
-      mettreAJourSuivi();
-    }
-
-    // Fonction pour mettre à jour l'affichage du suivi des énigmes
-    function mettreAJourSuivi() {
-      let suiviDiv = document.getElementById("suiviEnigmes");
-      suiviDiv.innerHTML = "";
-      resultats.forEach((valide, i) => {
-        let span = document.createElement("span");
-        span.textContent = valide ? enigmes[i].lettre : "_";
-        span.style.marginRight = "5px";
-        suiviDiv.appendChild(span);
-      });
-    }
-
-    // Afficher la première énigme dès le chargement
-    afficherEnigme();
-  </script>
-</body>
 </html>
