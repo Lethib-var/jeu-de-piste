@@ -80,6 +80,104 @@
   <script>
     // Tableau des énigmes
     const enigmes = [
-      { question: "Quel est
+      { question: "Quel est le nom du logiciel GIS d'Esri ?", reponse: "arcgis", lettre: "A" },
+      { question: "Enigme 2 : Quel est le symbole de l'infini ?", reponse: "∞", lettre: "B" },
+      { question: "Enigme 3 : Combien de continents y a-t-il ?", reponse: "7", lettre: "C" },
+      { question: "Enigme 4 : Quel est le nom de notre planète ?", reponse: "terre", lettre: "D" },
+      { question: "Enigme 5 : Quelle couleur obtient-on en mélangeant le rouge et le bleu ?", reponse: "violet", lettre: "E" },
+      { question: "Enigme 6 : Quel est le plus grand océan du monde ?", reponse: "pacifique", lettre: "F" },
+      { question: "Enigme 7 : Quel animal est le roi de la jungle ?", reponse: "lion", lettre: "G" },
+      { question: "Enigme 8 : Combien de jours y a-t-il dans une semaine ?", reponse: "7", lettre: "H" },
+      { question: "Enigme 9 : Quel est le plus petit nombre premier ?", reponse: "2", lettre: "I" },
+      { question: "Enigme 10 : Quelle est la capitale de la France ?", reponse: "paris", lettre: "J" }
+    ];
 
+    let indexEnigme = 0;
+    let resultats = new Array(enigmes.length).fill(false); // Suivi des énigmes résolues
+    let lettresTrouvees = [];
+
+    // Charger l'état sauvegardé (optionnel)
+    if (localStorage.getItem('indexEnigme')) {
+      indexEnigme = parseInt(localStorage.getItem('indexEnigme'));
+      resultats = JSON.parse(localStorage.getItem('resultats'));
+      lettresTrouvees = JSON.parse(localStorage.getItem('lettresTrouvees'));
+    }
+
+    // Affiche l'énigme courante
+    function afficherEnigme() {
+      // Masquer le bouton de passage par défaut
+      document.getElementById("nextButton").style.display = "none";
+      
+      if (indexEnigme < enigmes.length) {
+        document.getElementById("titreEnigme").textContent = "Enigme " + (indexEnigme + 1);
+        document.getElementById("question").textContent = enigmes[indexEnigme].question;
+        document.getElementById("reponse").value = "";
+        document.getElementById("message").textContent = "";
+      } else {
+        // Fin des énigmes, composition du mot final
+        let motFinal = lettresTrouvees.join("");
+        document.getElementById("titreEnigme").textContent = "Félicitations !";
+        document.getElementById("question").textContent = "Votre mot final est : " + motFinal;
+        document.getElementById("reponse").style.display = "none";
+        document.getElementById("message").style.display = "none";
+        document.getElementById("nextButton").style.display = "none";
+      }
+      mettreAJourSuivi();
+    }
+
+    // Vérifie la réponse de l'énigme courante
+    function verifierReponse() {
+      let reponseUtilisateur = document.getElementById("reponse").value.trim().toLowerCase();
+      let messageEl = document.getElementById("message");
+
+      if (reponseUtilisateur === enigmes[indexEnigme].reponse) {
+        messageEl.textContent = "Bonne réponse !";
+        messageEl.style.color = "green";
+        resultats[indexEnigme] = true;
+        lettresTrouvees.push(enigmes[indexEnigme].lettre);
+        
+        // Sauvegarder l'état dans le localStorage
+        localStorage.setItem('indexEnigme', indexEnigme);
+        localStorage.setItem('resultats', JSON.stringify(resultats));
+        localStorage.setItem('lettresTrouvees', JSON.stringify(lettresTrouvees));
+        
+        // Afficher le bouton pour charger l'énigme suivante
+        document.getElementById("nextButton").style.display = "inline-block";
+
+        // Fermer la pop-up après validation de la réponse
+        setTimeout(function() {
+          window.close(); // Ferme la fenêtre pop-up
+        }, 1000); // Légère attente avant de fermer la pop-up
+      } else {
+        messageEl.textContent = "Mauvaise réponse, essayez encore !";
+        messageEl.style.color = "red";
+      }
+      mettreAJourSuivi();
+    }
+
+    // Fonction déclenchée par le bouton "Charger l'énigme suivante"
+    function chargerProchaineEnigme() {
+      indexEnigme++; // Passage à l'énigme suivante
+      localStorage.setItem('indexEnigme', indexEnigme);
+      // Recharger la pop-up (ou simplement réafficher l'énigme)
+      location.reload();
+    }
+
+    // Met à jour l'affichage du suivi des énigmes
+    function mettreAJourSuivi() {
+      let suiviDiv = document.getElementById("suiviEnigmes");
+      suiviDiv.innerHTML = "";
+      resultats.forEach((valide, i) => {
+        let span = document.createElement("span");
+        span.textContent = valide ? enigmes[i].lettre : "_";
+        span.style.marginRight = "5px";
+        suiviDiv.appendChild(span);
+      });
+    }
+
+    // Afficher l'énigme courante dès le chargement
+    afficherEnigme();
+  </script>
+</body>
 </html>
+
